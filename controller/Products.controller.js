@@ -1,10 +1,10 @@
 const Crudmodel = require("../model/Product.model");
 
 const createPost = async(req , res)=>{
-  const {Crud  , images} = req.body;
+  const {images,blog_name, description,price,category} = req.body;
 
   try {
-    await Crudmodel.create({...Crud , images});
+    await Crudmodel.create({images,blog_name, description,price,category});
     res.send({
         status: true , 
         message : 'CRUD added successfull'
@@ -15,6 +15,17 @@ const createPost = async(req , res)=>{
         status: false
     })
   }
+}
+
+
+const getAllCrud = async(req , res)=>{
+	try{
+		let data = await Crudmodel.find()
+		res.send(data)
+
+	} catch(e){
+		res.send(e.massage)
+	}
 }
 
 const deletedCrud = async(req , res)=>{
@@ -54,4 +65,4 @@ const deletedCrud = async(req , res)=>{
 
 
 
-  module.exports = {createPost , deletedCrud , editCrud}
+  module.exports = {createPost , deletedCrud , editCrud, getAllCrud}
